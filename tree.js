@@ -1,6 +1,39 @@
 import { TreeNode } from "./tree-node.js";
 import { deCloneSort } from "./declone-sort.js";
 
+export class Tree {
+  constructor(arr) {
+    this.dataArray = arr || null;
+    this.root = builsTree(deCloneSort(arr)) || null;
+  }
+
+  insert(value, root = this.root) {
+    if (root == null) {
+      return new TreeNode(value);
+    } else if (value === root.data) return root;
+
+    if (value < root.data) {
+      root.left = this.insert(value, root.left);
+    } else {
+      root.right = this.insert(value, root.right);
+    }
+    return root;
+  }
+}
+
+export function prettyPrint(node, prefix = "", isLeft = true) {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+}
+
 function builsTree(array) {
   const start = 0;
   const end = array.length - 1;
@@ -17,24 +50,4 @@ function builsTree(array) {
   root.right = builsTree(array.splice(mid + 1));
   root.left = builsTree(array.splice(start, mid));
   return root;
-}
-
-export class Tree {
-  constructor(arr) {
-    this.dataArray = arr || null;
-    this.root = builsTree(deCloneSort(arr)) || null;
-  }
-}
-
-export function prettyPrint(node, prefix = "", isLeft = true) {
-  if (node === null) {
-    return;
-  }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-  }
-  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-  }
 }
