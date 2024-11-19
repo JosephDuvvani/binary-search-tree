@@ -19,6 +19,35 @@ export class Tree {
     }
     return root;
   }
+
+  remove(value, root = this.root) {
+    if (root == null) return null;
+    else if (root.left == null && root.right == null && value === root.data) {
+      return null;
+    } else if (
+      (root.left == null || root.right == null) &&
+      value === root.data
+    ) {
+      if (root.left == null) return root.right;
+      else return root.left;
+    } else if (root.left != null && root.right != null && value === root.data) {
+      let node = root.right;
+      while (node.left != null) node = node.left;
+
+      const data = node.data;
+      root = this.remove(data, root);
+      root.data = data;
+
+      return root;
+    }
+
+    if (value < root.data) {
+      root.left = this.remove(value, root.left);
+    } else {
+      root.right = this.remove(value, root.right);
+    }
+    return root;
+  }
 }
 
 export function prettyPrint(node, prefix = "", isLeft = true) {
