@@ -48,6 +48,15 @@ export class Tree {
     }
     return root;
   }
+
+  find(value) {
+    let node = this.root;
+    while (node != null && node.data != value) {
+      if (value < node.data) node = node.left;
+      else node = node.right;
+    }
+    return node;
+  }
 }
 
 export function prettyPrint(node, prefix = "", isLeft = true) {
