@@ -57,6 +57,23 @@ export class Tree {
     }
     return node;
   }
+
+  levelOrder(callback, nodes = [this.root]) {
+    if (!callback) throw new Error("No callback function passed in.");
+    if (this.root == null) return undefined;
+
+    if (nodes.length === 0) return;
+
+    let queue = [];
+    nodes.forEach((node) => {
+      callback(node);
+      if (node.left != null) queue.push(node.left);
+      if (node.right != null) queue.push(node.right);
+    });
+
+    this.levelOrder(callback, queue);
+    return;
+  }
 }
 
 export function prettyPrint(node, prefix = "", isLeft = true) {
