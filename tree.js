@@ -102,6 +102,16 @@ export class Tree {
   }
 }
 
+export function height(node) {
+  if (node == null) return 0;
+
+  let left = 1 + height(node.left);
+  let right = 1 + height(node.right);
+
+  if (left >= right) return left;
+  else return right;
+}
+
 export function prettyPrint(node, prefix = "", isLeft = true) {
   if (node === null) {
     return;
