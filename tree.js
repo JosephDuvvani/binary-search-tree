@@ -127,6 +127,14 @@ export class Tree {
 
     return false;
   }
+
+  rebalance() {
+    let newArr = [];
+    this.inOrder((node) => {
+      newArr.push(node.data);
+    });
+    this.root = builsTree(newArr);
+  }
 }
 
 export function height(node) {
