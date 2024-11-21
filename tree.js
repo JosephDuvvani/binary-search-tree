@@ -100,6 +100,24 @@ export class Tree {
     callback(root);
     return;
   }
+
+  depth(node) {
+    if (node == null)
+      throw new Error("Cannot find depth of null (node = null)");
+    if (this.root == null) return null;
+    let tmpNode = this.root;
+    let depth = 1;
+    while (tmpNode != null) {
+      if (tmpNode.data === node.data) break;
+
+      if (node.data < tmpNode.data) tmpNode = tmpNode.left;
+      else tmpNode = tmpNode.right;
+      depth++;
+    }
+    if (tmpNode == null) return null;
+
+    return depth;
+  }
 }
 
 export function height(node) {
