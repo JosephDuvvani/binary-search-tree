@@ -74,6 +74,32 @@ export class Tree {
     this.levelOrder(callback, queue);
     return;
   }
+
+  inOrder(callback, root = this.root) {
+    if (!callback) throw new Error("No callback function passed in.");
+    if (root == null) return;
+    this.inOrder(callback, root.left);
+    callback(root);
+    this.inOrder(callback, root.right);
+    return;
+  }
+
+  preOrder(callback, root = this.root) {
+    if (!callback) throw new Error("No callback function passed in.");
+    if (root == null) return;
+    callback(root);
+    this.preOrder(callback, root.left);
+    this.preOrder(callback, root.right);
+    return;
+  }
+  postOrder(callback, root = this.root) {
+    if (!callback) throw new Error("No callback function passed in.");
+    if (root == null) return;
+    this.postOrder(callback, root.left);
+    this.postOrder(callback, root.right);
+    callback(root);
+    return;
+  }
 }
 
 export function prettyPrint(node, prefix = "", isLeft = true) {
