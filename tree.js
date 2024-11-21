@@ -118,6 +118,15 @@ export class Tree {
 
     return depth;
   }
+
+  isBalanced() {
+    if (this.root == null) return true;
+
+    const diff = height(this.root.left) - height(this.root.right);
+    if (diff >= -1 && diff <= 1) return true;
+
+    return false;
+  }
 }
 
 export function height(node) {
